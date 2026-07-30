@@ -1,0 +1,13 @@
+{
+  "domain": "leistung_zu_energie",
+  "name": "Leistung zu Energie",
+  "codeowners": [
+    "@lenni76"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/lenni76/leistung-zu-energie",
+  "issue_tracker": "https://github.com/lenni76/leistung-zu-energie/issues",
+  "integration_type": "helper",
+  "iot_class": "calculated",
+  "version": "2.0.0"
+}

@@ -1,0 +1,100 @@
+{
+  "title": "Leistung zu Energie",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Leistungssensoren auswählen",
+        "description": "Für jeden ausgewählten Leistungssensor werden Gesamt-, Tages-, Wochen-, Monats- und Jahresenergie erzeugt.",
+        "data": {
+          "source_entities": "Leistungssensoren",
+          "value_mode": "Behandlung negativer Werte",
+          "integration_method": "Integrationsmethode",
+          "max_interval_minutes": "Maximale Datenlücke",
+          "daily_reset_hour": "Reset-Stunde",
+          "week_start": "Wochenbeginn"
+        },
+        "data_description": {
+          "max_interval_minutes": "Längere Zeiträume ohne gültigen Messwert werden nicht nachberechnet.",
+          "daily_reset_hour": "Stunde, zu der Tageszähler und die übrigen Kalenderperioden wechseln."
+        }
+      }
+    },
+    "error": {
+      "no_entities": "Wähle mindestens einen Leistungssensor aus.",
+      "entity_not_found": "Mindestens eine ausgewählte Entität wurde nicht gefunden.",
+      "unsupported_unit": "Alle Sensoren müssen mW, W, kW oder MW verwenden."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Leistung zu Energie konfigurieren",
+        "data": {
+          "source_entities": "Leistungssensoren",
+          "value_mode": "Behandlung negativer Werte",
+          "integration_method": "Integrationsmethode",
+          "max_interval_minutes": "Maximale Datenlücke",
+          "daily_reset_hour": "Reset-Stunde",
+          "week_start": "Wochenbeginn"
+        },
+        "data_description": {
+          "max_interval_minutes": "Längere Zeiträume ohne gültigen Messwert werden nicht nachberechnet.",
+          "daily_reset_hour": "Stunde, zu der Tageszähler und die übrigen Kalenderperioden wechseln."
+        }
+      }
+    }
+  },
+  "selector": {
+    "value_mode": {
+      "options": {
+        "positive": "Nur positive Werte; negative Werte werden 0",
+        "absolute": "Betrag; negative Werte werden positiv gezählt",
+        "signed": "Vorzeichen beibehalten; Nettoenergie"
+      }
+    },
+    "integration_method": {
+      "options": {
+        "left": "Links – vorherigen Messwert verwenden",
+        "right": "Rechts – neuen Messwert verwenden",
+        "trapezoidal": "Trapez – Mittelwert beider Messwerte"
+      }
+    },
+    "week_start": {
+      "options": {
+        "0": "Montag",
+        "1": "Dienstag",
+        "2": "Mittwoch",
+        "3": "Donnerstag",
+        "4": "Freitag",
+        "5": "Samstag",
+        "6": "Sonntag"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "total": {
+        "name": "Energie Gesamt"
+      },
+      "day": {
+        "name": "Energie Tag"
+      },
+      "week": {
+        "name": "Energie Woche"
+      },
+      "month": {
+        "name": "Energie Monat"
+      },
+      "year": {
+        "name": "Energie Jahr"
+      },
+      "status": {
+        "name": "Energie-Status",
+        "state": {
+          "available": "Verfügbar",
+          "unavailable": "Nicht verfügbar"
+        }
+      }
+    }
+  }
+}

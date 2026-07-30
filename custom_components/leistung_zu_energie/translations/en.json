@@ -1,0 +1,100 @@
+{
+  "title": "Power to Energy",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Select power sensors",
+        "description": "Creates total, daily, weekly, monthly and yearly energy for every selected power sensor.",
+        "data": {
+          "source_entities": "Power sensors",
+          "value_mode": "Negative value handling",
+          "integration_method": "Integration method",
+          "max_interval_minutes": "Maximum data gap",
+          "daily_reset_hour": "Reset hour",
+          "week_start": "Week starts on"
+        },
+        "data_description": {
+          "max_interval_minutes": "Longer periods without a valid reading are not backfilled.",
+          "daily_reset_hour": "Hour at which the daily counter and calendar periods change."
+        }
+      }
+    },
+    "error": {
+      "no_entities": "Select at least one power sensor.",
+      "entity_not_found": "At least one selected entity was not found.",
+      "unsupported_unit": "All sensors must use mW, W, kW or MW."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure Power to Energy",
+        "data": {
+          "source_entities": "Power sensors",
+          "value_mode": "Negative value handling",
+          "integration_method": "Integration method",
+          "max_interval_minutes": "Maximum data gap",
+          "daily_reset_hour": "Reset hour",
+          "week_start": "Week starts on"
+        },
+        "data_description": {
+          "max_interval_minutes": "Longer periods without a valid reading are not backfilled.",
+          "daily_reset_hour": "Hour at which the daily counter and calendar periods change."
+        }
+      }
+    }
+  },
+  "selector": {
+    "value_mode": {
+      "options": {
+        "positive": "Positive values only; negative values become 0",
+        "absolute": "Absolute value; count negative values as positive",
+        "signed": "Keep sign; net energy"
+      }
+    },
+    "integration_method": {
+      "options": {
+        "left": "Left – use previous reading",
+        "right": "Right – use new reading",
+        "trapezoidal": "Trapezoidal – average both readings"
+      }
+    },
+    "week_start": {
+      "options": {
+        "0": "Monday",
+        "1": "Tuesday",
+        "2": "Wednesday",
+        "3": "Thursday",
+        "4": "Friday",
+        "5": "Saturday",
+        "6": "Sunday"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "total": {
+        "name": "Total energy"
+      },
+      "day": {
+        "name": "Daily energy"
+      },
+      "week": {
+        "name": "Weekly energy"
+      },
+      "month": {
+        "name": "Monthly energy"
+      },
+      "year": {
+        "name": "Yearly energy"
+      },
+      "status": {
+        "name": "Energy status",
+        "state": {
+          "available": "Available",
+          "unavailable": "Unavailable"
+        }
+      }
+    }
+  }
+}
