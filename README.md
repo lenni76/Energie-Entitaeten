@@ -33,3 +33,9 @@ Die Methode **Links** ist für viele Leistungssensoren mit stufenförmigen Messw
 ## Update von 1.x
 
 Die Konfiguration und vorhandenen Zählerstände des bisherigen einzelnen Leistungssensors werden beim ersten Start automatisch übernommen. Vor dem Update sollte trotzdem ein Home-Assistant-Backup erstellt werden.
+
+
+## 2.0.1
+
+- Behebt den Fehler `expected str` bei unveränderter Reset-Stunde 0.
+- Normalisiert ältere numerische Werte für den Wochenbeginn für den Auswahl-Selector.

@@ -39,11 +39,25 @@ SUPPORTED_UNITS = {
 def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
     """Return the user/options schema."""
     defaults = defaults or {}
+
+    # SelectSelector values must always be strings. Older entries and the
+    # original 2.0.0 defaults may contain the week start as an integer.
+    normalized_defaults = dict(defaults)
+    normalized_defaults[CONF_WEEK_START] = str(
+        normalized_defaults.get(CONF_WEEK_START, str(DEFAULT_WEEK_START))
+    )
+    normalized_defaults[CONF_DAILY_RESET_HOUR] = int(
+        defaults.get(CONF_DAILY_RESET_HOUR, DEFAULT_DAILY_RESET_HOUR)
+    )
+    normalized_defaults[CONF_MAX_INTERVAL] = int(
+        normalized_defaults.get(CONF_MAX_INTERVAL, DEFAULT_MAX_INTERVAL)
+    )
+
     return vol.Schema(
         {
             vol.Required(
                 CONF_SOURCE_ENTITIES,
-                default=defaults.get(CONF_SOURCE_ENTITIES, []),
+                default=normalized_defaults.get(CONF_SOURCE_ENTITIES, []),
             ): selector.EntitySelector(
                 selector.EntitySelectorConfig(
                     domain="sensor",
@@ -53,7 +67,7 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
             ),
             vol.Required(
                 CONF_VALUE_MODE,
-                default=defaults.get(CONF_VALUE_MODE, DEFAULT_MODE),
+                default=normalized_defaults.get(CONF_VALUE_MODE, DEFAULT_MODE),
             ): selector.SelectSelector(
                 selector.SelectSelectorConfig(
                     options=VALUE_MODES,
@@ -63,7 +77,7 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
             ),
             vol.Required(
                 CONF_INTEGRATION_METHOD,
-                default=defaults.get(CONF_INTEGRATION_METHOD, DEFAULT_METHOD),
+                default=normalized_defaults.get(CONF_INTEGRATION_METHOD, DEFAULT_METHOD),
             ): selector.SelectSelector(
                 selector.SelectSelectorConfig(
                     options=INTEGRATION_METHODS,
@@ -73,7 +87,7 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
             ),
             vol.Required(
                 CONF_MAX_INTERVAL,
-                default=defaults.get(CONF_MAX_INTERVAL, DEFAULT_MAX_INTERVAL),
+                default=normalized_defaults.get(CONF_MAX_INTERVAL, DEFAULT_MAX_INTERVAL),
             ): selector.NumberSelector(
                 selector.NumberSelectorConfig(
                     min=1,
@@ -85,7 +99,7 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
             ),
             vol.Required(
                 CONF_DAILY_RESET_HOUR,
-                default=defaults.get(
+                default=normalized_defaults.get(
                     CONF_DAILY_RESET_HOUR, DEFAULT_DAILY_RESET_HOUR
                 ),
             ): selector.NumberSelector(
@@ -99,7 +113,7 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
             ),
             vol.Required(
                 CONF_WEEK_START,
-                default=defaults.get(CONF_WEEK_START, DEFAULT_WEEK_START),
+                default=normalized_defaults.get(CONF_WEEK_START, str(DEFAULT_WEEK_START)),
             ): selector.SelectSelector(
                 selector.SelectSelectorConfig(
                     options=[str(day) for day in range(7)],
@@ -128,7 +142,7 @@ class LeistungZuEnergieConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow."""
 
     VERSION = 2
-    MINOR_VERSION = 1
+    MINOR_VERSION = 2
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle the initial step."""
